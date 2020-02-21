@@ -1,0 +1,16 @@
+{
+  "name": "scanner2d",
+  "version": "1.1.0",
+  "description": "plugin para cordova de IPDA050 Scanner",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "cordova",
+    "IPDA050",
+    "android"
+  ],
+  "author": "Edison Jimenez V",
+  "license": "ISC"
+}

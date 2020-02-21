@@ -1,0 +1,20 @@
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android" id="cordova-plugin-ipda0502d-scanner" version="1.0.0">
+   <name>Scanner2D</name>
+   <js-module name="Scanner2D" src="www/Scanner2D.js">
+      <clobbers target="windows.Scanner2D" />
+   </js-module>
+   <platform name="android">
+      <config-file parent="/*" target="res/xml/config.xml">
+         <feature name="Scanner2D">
+            <param name="android-package" value="cordova.plugin.ipda0502d.scanner.Scanner2D" />
+         </feature>
+      </config-file>
+      <config-file parent="/*" target="AndroidManifest.xml" />
+           <lib-file src="src/android/IGLBarDecoder.jar" arch="device" />
+      <source-file src="src/android/Scanner2D.java" target-dir="src/cordova/plugin/ipda0502d/scanner/Scanner2D" />
+   </platform>
+</plugin>
+
