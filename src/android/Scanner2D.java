@@ -10,8 +10,8 @@ import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
+
+
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -34,7 +34,7 @@ import org.json.JSONObject;
  * This class echoes a string called from JavaScript.
  */
 public class Scanner2D extends CordovaPlugin {
-    ScanDevice sm;
+    //ScanDevice sm;
 	private final static String SCAN_ACTION = "scan.rcv.message";
 	private final static String EVENT_PREFIX = "scanner";
     private CallbackContext mMainCallback;
