@@ -3,9 +3,6 @@ package cordova.plugin.ipda0502d.scanner;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
 
-import com.zebra.adc.decoder.Barcode2DWithSoft;
-
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
