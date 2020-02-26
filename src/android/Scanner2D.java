@@ -1,31 +1,35 @@
 package cordova.plugin.ipda0502d.scanner;
 
-import org.apache.cordova.CordovaPlugin;
-import org.apache.cordova.CallbackContext;
 
-
+import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Vibrator;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import com.rscja.deviceapi.RFIDWithISO14443A;
-import com.zebra.adc.decoder.Barcode2DWithSoft;
-
-
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import com.rscja.deviceapi.RFIDWithISO14443A;
+import com.zebra.adc.decoder.Barcode2DWithSoft;
+
+import java.io.UnsupportedEncodingException;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,7 +47,7 @@ public class Scanner2D extends CordovaPlugin {
 
     String TAG="MainActivity";
     String barCode="";
-    EditText data1;
+    //EditText data1;
     Button btn;
     Barcode2DWithSoft barcode2DWithSoft=null;
     String seldata="ASCII";
