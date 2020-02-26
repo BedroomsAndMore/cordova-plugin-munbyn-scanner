@@ -219,7 +219,8 @@ public class Scanner2D extends CordovaPlugin {
             ScanBarcode();
 			return true;
 		} else if ("open".equals(action)) {
-			if (!barcode2DWithSoft.isScanOpened()) {
+            openScan();
+		/*	if (!barcode2DWithSoft.isScanOpened()) {
 				barcode2DWithSoft.openScan();
 			}
 			barcode2DWithSoft.setOutScanMode(0);
@@ -229,7 +230,7 @@ public class Scanner2D extends CordovaPlugin {
 			PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, jsEvent);
 			pluginResult.setKeepCallback(true);
 			mMainCallback.sendPluginResult(pluginResult);
-
+*/
 			return true;
 		}else if("onKeyDown".equals(action)) {
             String message = args.getString(0);
