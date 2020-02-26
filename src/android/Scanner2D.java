@@ -3,7 +3,7 @@ package cordova.plugin.ipda0502d.scanner;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
 import com.zebra.adc.decoder.Barcode2DWithSoft;
-import com.example.barcode2ds.SoundManage.SoundType;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
@@ -166,7 +166,7 @@ public class Scanner2D extends CordovaPlugin {
                     Log.i(TAG,"Scan fail");
                 }
             }else{
-                SoundManage.PlaySound(Scanner2D.this, SoundManage.SoundType.SUCCESS);
+               
                 barCode="";
 
 
