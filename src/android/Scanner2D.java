@@ -104,11 +104,11 @@ public class Scanner2D extends CordovaPlugin {
         new InitTask().execute();
     }
 */
-    @Override
+  /*  @Override
     protected void onResume() {
          super.onResume();
-    }
-    @Override
+    }*/
+ /*   @Override
     protected void onDestroy() {
         Log.i(TAG,"onDestroy");
         if(barcode2DWithSoft!=null){
@@ -117,8 +117,8 @@ public class Scanner2D extends CordovaPlugin {
         }
         super.onDestroy();
         //android.os.Process.killProcess(Process.myPid());
-    }
-    public Barcode2DWithSoft.ScanCallback  ScanBack= new Barcode2DWithSoft.ScanCallback(){
+    }*/
+   /* public Barcode2DWithSoft.ScanCallback  ScanBack= new Barcode2DWithSoft.ScanCallback(){
         @Override
         public void onScanComplete(int i, int length, byte[] bytes) {
             if (length < 1) {
@@ -145,7 +145,7 @@ public class Scanner2D extends CordovaPlugin {
             }
 
         }
-    };
+    };*/
     void zt() {
 
         Vibrator vibrator = (Vibrator)this.getSystemService(this.VIBRATOR_SERVICE);
