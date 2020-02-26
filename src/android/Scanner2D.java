@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.rscja.deviceapi.RFIDWithISO14443A;
 import com.zebra.adc.decoder.Barcode2DWithSoft;
 
+
 import java.io.UnsupportedEncodingException;
 import org.apache.cordova.*;
 import org.json.JSONArray;
@@ -52,6 +53,7 @@ public class Scanner2D extends CordovaPlugin {
     String seldata="ASCII";
     private ArrayAdapter adapterTagType;
     private Spinner spTagType;
+    
     
   /*  HomeKeyEventBroadCastReceiver     receiver;
     @Override
@@ -146,12 +148,13 @@ public class Scanner2D extends CordovaPlugin {
 
         }
     };*/
-    void zt() {
+   /* void zt() {
 
         Vibrator vibrator = (Vibrator)this.getSystemService(this.VIBRATOR_SERVICE);
         vibrator.vibrate(100);
-    }
+    }*/
     private void ScanBarcode(){
+        barcode2DWithSoft=Barcode2DWithSoft.getInstance();
         if(barcode2DWithSoft!=null) {
             Log.i(TAG,"ScanBarcode");
 
