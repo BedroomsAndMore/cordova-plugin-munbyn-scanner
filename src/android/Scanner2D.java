@@ -10,6 +10,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.device.ScanDevice;
+
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -27,6 +29,7 @@ import android.widget.Toast;
 
 import com.rscja.deviceapi.RFIDWithISO14443A;
 import com.zebra.adc.decoder.Barcode2DWithSoft;
+import com.rscja.deviceapi.Barcode2D;
 
 
 import java.io.UnsupportedEncodingException;
@@ -39,7 +42,7 @@ import org.json.JSONObject;
  * This class echoes a string called from JavaScript.
  */
 public class Scanner2D extends CordovaPlugin {
-    //ScanDevice sm;
+    ScanDevice sm;
 	private final static String SCAN_ACTION = "scan.rcv.message";
 	private final static String EVENT_PREFIX = "scanner";
     private CallbackContext mMainCallback;
@@ -54,8 +57,7 @@ public class Scanner2D extends CordovaPlugin {
     private ArrayAdapter adapterTagType;
     private Spinner spTagType;
 
-    class HomeKeyEventBroadCastReceiver extends BroadcastReceiver {
-
+    private BroadcastReceiver mScanReceiver = new BroadcastReceiver() {
         static final String SYSTEM_REASON = "reason";
         static final String SYSTEM_HOME_KEY = "homekey";//home key
         static final String SYSTEM_RECENT_APPS = "recentapps";//long home key
@@ -77,14 +79,22 @@ public class Scanner2D extends CordovaPlugin {
                // Toast.makeText(getApplicationContext(), "home key="+reason+",long1="+long1, Toast.LENGTH_SHORT).show();
             }
         }
-    }
+    };
+
     @Override
 	public void initialize(CordovaInterface cordova, CordovaWebView webView) {
 		super.initialize(cordova, webView);
 
 		sm = new ScanDevice();
 	}
-    
+    @Override
+    public void onResume(boolean multitasking) {
+
+        super.onResume(multitasking);
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(SCAN_ACTION);
+        this.cordova.getActivity().registerReceiver(mScanReceiver, filter);
+    }
   /*  HomeKeyEventBroadCastReceiver     receiver;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,7 +130,7 @@ public class Scanner2D extends CordovaPlugin {
 
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
-                // TODO Auto-generated method stub
+                
 
             }
         });
@@ -150,7 +160,7 @@ public class Scanner2D extends CordovaPlugin {
         super.onDestroy();
         //android.os.Process.killProcess(Process.myPid());
     }*/
-   /* public Barcode2DWithSoft.ScanCallback  ScanBack= new Barcode2DWithSoft.ScanCallback(){
+    public Barcode2DWithSoft.ScanCallback  ScanBack= new Barcode2DWithSoft.ScanCallback(){
         @Override
         public void onScanComplete(int i, int length, byte[] bytes) {
             if (length < 1) {
@@ -162,7 +172,7 @@ public class Scanner2D extends CordovaPlugin {
                     Log.i(TAG,"Scan fail");
                 }
             }else{
-                SoundManage.PlaySound(MainActivity.this, SoundManage.SoundType.SUCCESS);
+                SoundManage.PlaySound(Scanner2D.this, SoundManage.SoundType.SUCCESS);
                 barCode="";
 
 
@@ -177,7 +187,7 @@ public class Scanner2D extends CordovaPlugin {
             }
 
         }
-    };*/
+    };
    /* void zt() {
 
         Vibrator vibrator = (Vibrator)this.getSystemService(this.VIBRATOR_SERVICE);
@@ -228,29 +238,7 @@ public class Scanner2D extends CordovaPlugin {
 		return false;
     }
     //class HomeKeyEventBroadCastReceiver extends BroadcastReceiver {
-    private BroadcastReceiver mScanReceiver = new BroadcastReceiver() {
-        static final String SYSTEM_REASON = "reason";
-        static final String SYSTEM_HOME_KEY = "homekey";//home key
-        static final String SYSTEM_RECENT_APPS = "recentapps";//long home key
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            if (action.equals("com.rscja.android.KEY_DOWN")) {
-                int reason = intent.getIntExtra("Keycode",0);
-                //getStringExtra
-                boolean long1 = intent.getBooleanExtra("Pressed",false);
-                // home key处理点
-                if(reason==280 || reason==66){
-
-                        ScanBarcode();
-
-
-                }
-               // Toast.makeText(getApplicationContext(), "home key="+reason+",long1="+long1, Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
+    
 
 }
 
