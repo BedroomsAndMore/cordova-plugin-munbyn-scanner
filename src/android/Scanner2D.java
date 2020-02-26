@@ -219,10 +219,10 @@ public class Scanner2D extends CordovaPlugin {
             ScanBarcode();
 			return true;
 		} else if ("open".equals(action)) {
-			if (!sm.isScanOpened()) {
-				sm.openScan();
+			if (!barcode2DWithSoft.isScanOpened()) {
+				barcode2DWithSoft.openScan();
 			}
-			sm.setOutScanMode(0);
+			barcode2DWithSoft.setOutScanMode(0);
 
 			JSONArray jsEvent = new JSONArray();
 			jsEvent.put(EVENT_PREFIX + "Open");
