@@ -1,5 +1,7 @@
 package cordova.plugin.ipda0502d.scanner;
 
+import org.apache.cordova.CordovaPlugin;
+import org.apache.cordova.CallbackContext;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -27,7 +29,7 @@ import com.rscja.deviceapi.RFIDWithISO14443A;
 import com.zebra.adc.decoder.Barcode2DWithSoft;
 
 import java.io.UnsupportedEncodingException;
-
+import org.apache.cordova.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
