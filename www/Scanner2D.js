@@ -7,6 +7,10 @@ Scanner.coolMethod = function() {
   exec(null, null, 'Scanner2D', 'coolMethod', [arg0]);
   return this;
 };
+Scanner.onKeyDown = function() {
+    exec(null, null, 'Scanner2D', 'onKeyDown', [arg0]);
+    return this;
+  };
 /*
 exports.coolMethod = function (arg0, success, error) {
     exec(success, error, 'Scanner', 'coolMethod', [arg0]);
