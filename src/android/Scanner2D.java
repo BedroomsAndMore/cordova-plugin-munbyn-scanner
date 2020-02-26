@@ -81,57 +81,7 @@ public class Scanner2D extends CordovaPlugin {
             }
         }
     }
-    public class InitTask extends AsyncTask<String, Integer, Boolean> {
-        ProgressDialog mypDialog;
-
-        @Override
-        protected Boolean doInBackground(String... params) {
-            
-
-
-            boolean reuslt=false;
-            if(barcode2DWithSoft!=null) {
-                reuslt=  barcode2DWithSoft.open(Scanner2D.this);
-                Log.i(TAG,"open="+reuslt);
-
-            }
-            return reuslt;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean result) {
-            super.onPostExecute(result);
-            if(result){
-//                barcode2DWithSoft.setParameter(324, 1);
-//                barcode2DWithSoft.setParameter(300, 0); // Snapshot Aiming
-//                barcode2DWithSoft.setParameter(361, 0); // Image Capture Illumination
-
-                // interleaved 2 of 5
-                barcode2DWithSoft.setParameter(6, 1);
-                barcode2DWithSoft.setParameter(22, 0);
-                barcode2DWithSoft.setParameter(23, 55);
-                barcode2DWithSoft.setParameter(402, 1);
-                Toast.makeText(Scanner2D.this,"Success",Toast.LENGTH_SHORT).show();
-            }else{
-                Toast.makeText(Scanner2D.this,"fail",Toast.LENGTH_SHORT).show();
-            }
-            mypDialog.cancel();
-        }
-
-        @Override
-        protected void onPreExecute() {
-            
-            super.onPreExecute();
-
-            mypDialog = new ProgressDialog(Scanner2D.this);
-            mypDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            mypDialog.setMessage("init...");
-            mypDialog.setCanceledOnTouchOutside(false);
-            mypDialog.show();
-        }
-
-    }
-
+ 
     @Override
     protected void onResume() {
         // TODO Auto-generated method stub
