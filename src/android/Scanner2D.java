@@ -46,13 +46,14 @@ public class Scanner2D extends CordovaPlugin {
 
     String TAG="Scanner2D";
     String barCode="";
-    //EditText data1;
+    EditText data1;
     Button btn;
     Barcode2DWithSoft barcode2DWithSoft=null;
     String seldata="ASCII";
     private ArrayAdapter adapterTagType;
     private Spinner spTagType;
-    HomeKeyEventBroadCastReceiver     receiver;
+    
+  /*  HomeKeyEventBroadCastReceiver     receiver;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,16 +103,10 @@ public class Scanner2D extends CordovaPlugin {
 
         new InitTask().execute();
     }
-
+*/
     @Override
     protected void onResume() {
-     
-
-/*
-        if (barcode2DWithSoft != null) {
-            new InitTask().execute();
-        }*/
-        super.onResume();
+         super.onResume();
     }
     @Override
     protected void onDestroy() {
