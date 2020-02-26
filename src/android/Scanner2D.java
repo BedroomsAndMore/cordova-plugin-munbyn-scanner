@@ -159,7 +159,7 @@ public class Scanner2D extends CordovaPlugin {
             Log.i(TAG,"ScanBarcode");
 
             barcode2DWithSoft.scan();
-            barcode2DWithSoft.setScanCallback(ScanBack);
+          // barcode2DWithSoft.setScanCallback(ScanBack);
         }
     }
 
