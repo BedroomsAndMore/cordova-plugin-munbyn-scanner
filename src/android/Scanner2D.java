@@ -54,56 +54,7 @@ public class Scanner2D extends CordovaPlugin {
     private Spinner spTagType;
     HomeKeyEventBroadCastReceiver     receiver;
    // @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        barcode2DWithSoft=Barcode2DWithSoft.getInstance();
 
-        receiver = new HomeKeyEventBroadCastReceiver();
-        registerReceiver(receiver, new IntentFilter("com.rscja.android.KEY_DOWN"));
-
-
-        data1= (EditText) findViewById(R.id.editText);
-        btn=(Button)findViewById(R.id.button);
-        spTagType=(Spinner)findViewById(R.id.spTagType);
-        adapterTagType = ArrayAdapter.createFromResource(this,
-                R.array.arrayTagType, android.R.layout.simple_spinner_item);
-
-        adapterTagType
-                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        spTagType.setAdapter(adapterTagType);
-        spTagType.setSelection(1);
-
-        spTagType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view,
-                                       int position, long id) {
-                //获取选中值
-                Spinner spinner = (Spinner) adapterView;
-                 seldata = (String) spinner.getItemAtPosition(position);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-                
-
-            }
-        });
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ScanBarcode();
-
-
-            }
-        });
-
-        new InitTask().execute();
-    }
-
-    
     //@Override
 
     class HomeKeyEventBroadCastReceiver extends BroadcastReceiver {
@@ -135,7 +86,7 @@ public class Scanner2D extends CordovaPlugin {
 
         @Override
         protected Boolean doInBackground(String... params) {
-            // TODO Auto-generated method stub
+            
 
 
             boolean reuslt=false;
@@ -181,29 +132,15 @@ public class Scanner2D extends CordovaPlugin {
 
     }
 
-
     @Override
-    public void onResume(boolean multitasking) {
+    protected void onResume() {
+        // TODO Auto-generated method stub
 
-       
-        super.onResume(multitasking);
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(SCAN_ACTION);
-        this.cordova.getActivity().registerReceiver(mScanReceiver, filter);
-
-        if (sm.isScanOpened() && sm.getOutScanMode() != 0) {
-            sm.setOutScanMode(0);
-        }
-
-        JSONArray jsEvent = new JSONArray();
-        jsEvent.put(EVENT_PREFIX + "PluginResume");
-        int isOpen  = (sm.isScanOpened() ? 1 : 0);
-        int vibrate  = (sm.getScanVibrateState() ? 1 : 0);
-        int beep  = (sm.getScanBeepState() ? 1 : 0);
-        jsEvent.put(isOpen << 2 | vibrate << 1 | beep);
-        PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, jsEvent);
-        pluginResult.setKeepCallback(true);
-        mMainCallback.sendPluginResult(pluginResult);
+/*
+        if (barcode2DWithSoft != null) {
+            new InitTask().execute();
+        }*/
+        super.onResume();
     }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -227,7 +164,8 @@ public class Scanner2D extends CordovaPlugin {
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if ("init".equals(action)) {
 			mMainCallback = callbackContext;
-			this.onResume(false);
+            //this.onResume(false);
+            ScanBarcode();
 			return true;
 		} else if("onKeyDown".equals(action)) {
             String message = args.getString(0);
