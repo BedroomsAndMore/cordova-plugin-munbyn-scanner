@@ -53,7 +53,7 @@ public class Scanner2D extends CordovaPlugin {
     private ArrayAdapter adapterTagType;
     private Spinner spTagType;
     HomeKeyEventBroadCastReceiver     receiver;
-    @Override
+   // @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -103,7 +103,7 @@ public class Scanner2D extends CordovaPlugin {
         new InitTask().execute();
     }
 
-    @Override
+    //@Override
 
     class HomeKeyEventBroadCastReceiver extends BroadcastReceiver {
 
