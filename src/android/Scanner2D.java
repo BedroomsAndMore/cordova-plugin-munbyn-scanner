@@ -182,11 +182,11 @@ public class Scanner2D extends CordovaPlugin {
 
         }
     };
-   /* void zt() {
+    void zt() {
 
         Vibrator vibrator = (Vibrator)this.getSystemService(this.VIBRATOR_SERVICE);
         vibrator.vibrate(100);
-    }*/
+    }
     private void ScanBarcode(){
         barcode2DWithSoft=Barcode2DWithSoft.getInstance();
         if(barcode2DWithSoft!=null) {
