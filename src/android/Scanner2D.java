@@ -44,7 +44,7 @@ public class Scanner2D extends CordovaPlugin {
     private CallbackContext mMainCallback;
 
 
-    String TAG="MainActivity";
+    String TAG="Scanner2D";
     String barCode="";
     //EditText data1;
     Button btn;
@@ -103,6 +103,7 @@ public class Scanner2D extends CordovaPlugin {
         new InitTask().execute();
     }
 
+    
     //@Override
 
     class HomeKeyEventBroadCastReceiver extends BroadcastReceiver {
@@ -139,7 +140,7 @@ public class Scanner2D extends CordovaPlugin {
 
             boolean reuslt=false;
             if(barcode2DWithSoft!=null) {
-                reuslt=  barcode2DWithSoft.open(MainActivity.this);
+                reuslt=  barcode2DWithSoft.open(Scanner2D.this);
                 Log.i(TAG,"open="+reuslt);
 
             }
@@ -159,9 +160,9 @@ public class Scanner2D extends CordovaPlugin {
                 barcode2DWithSoft.setParameter(22, 0);
                 barcode2DWithSoft.setParameter(23, 55);
                 barcode2DWithSoft.setParameter(402, 1);
-                Toast.makeText(MainActivity.this,"Success",Toast.LENGTH_SHORT).show();
+                Toast.makeText(Scanner2D.this,"Success",Toast.LENGTH_SHORT).show();
             }else{
-                Toast.makeText(MainActivity.this,"fail",Toast.LENGTH_SHORT).show();
+                Toast.makeText(Scanner2D.this,"fail",Toast.LENGTH_SHORT).show();
             }
             mypDialog.cancel();
         }
@@ -171,7 +172,7 @@ public class Scanner2D extends CordovaPlugin {
             
             super.onPreExecute();
 
-            mypDialog = new ProgressDialog(MainActivity.this);
+            mypDialog = new ProgressDialog(Scanner2D.this);
             mypDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             mypDialog.setMessage("init...");
             mypDialog.setCanceledOnTouchOutside(false);
