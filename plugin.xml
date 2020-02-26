@@ -14,6 +14,7 @@
       </config-file>
       <config-file parent="/*" target="AndroidManifest.xml" />
            <lib-file src="src/android/IGLBarDecoder.jar" arch="device" />
+            <lib-file src="src/android/cw-deviceapi20180918.jar" arch="device" />
       <source-file src="src/android/Scanner2D.java" target-dir="src/cordova/plugin/ipda0502d/scanner/Scanner2D" />
    </platform>
 </plugin>
