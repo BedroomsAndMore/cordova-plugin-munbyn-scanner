@@ -218,20 +218,6 @@ public class Scanner2D extends CordovaPlugin {
             //this.onResume(false);
             ScanBarcode();
 			return true;
-		} else if ("open".equals(action)) {
-            barcode2DWithSoft.open(Scanner2D.this);
-		/*	if (!barcode2DWithSoft.isScanOpened()) {
-				barcode2DWithSoft.openScan();
-			}
-			barcode2DWithSoft.setOutScanMode(0);
-
-			JSONArray jsEvent = new JSONArray();
-			jsEvent.put(EVENT_PREFIX + "Open");
-			PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, jsEvent);
-			pluginResult.setKeepCallback(true);
-			mMainCallback.sendPluginResult(pluginResult);
-*/
-			return true;
 		}else if("onKeyDown".equals(action)) {
             String message = args.getString(0);
            // this.onKeyDown(action, callbackContext);
