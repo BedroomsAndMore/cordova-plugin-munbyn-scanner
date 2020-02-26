@@ -173,7 +173,7 @@ public class Scanner2D extends CordovaPlugin {
       //  return super.onKeyDown(keyCode, event);
     }*/
    // @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
+  /*  public boolean onKeyUp(int keyCode, KeyEvent event) {
         if(keyCode==139){
             if(event.getRepeatCount()==0) {
                 barcode2DWithSoft.stopScan();
@@ -181,7 +181,7 @@ public class Scanner2D extends CordovaPlugin {
             }
         }
       //  return super.onKeyUp(keyCode, event);
-    }
+    }*/
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if ("init".equals(action)) {
