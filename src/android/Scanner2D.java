@@ -53,8 +53,57 @@ public class Scanner2D extends CordovaPlugin {
     private ArrayAdapter adapterTagType;
     private Spinner spTagType;
     HomeKeyEventBroadCastReceiver     receiver;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        barcode2DWithSoft=Barcode2DWithSoft.getInstance();
 
-   //@Override
+        receiver = new HomeKeyEventBroadCastReceiver();
+        registerReceiver(receiver, new IntentFilter("com.rscja.android.KEY_DOWN"));
+
+
+        data1= (EditText) findViewById(R.id.editText);
+        btn=(Button)findViewById(R.id.button);
+        spTagType=(Spinner)findViewById(R.id.spTagType);
+        adapterTagType = ArrayAdapter.createFromResource(this,
+                R.array.arrayTagType, android.R.layout.simple_spinner_item);
+
+        adapterTagType
+                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spTagType.setAdapter(adapterTagType);
+        spTagType.setSelection(1);
+
+        spTagType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view,
+                                       int position, long id) {
+                //获取选中值
+                Spinner spinner = (Spinner) adapterView;
+                 seldata = (String) spinner.getItemAtPosition(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                // TODO Auto-generated method stub
+
+            }
+        });
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ScanBarcode();
+
+
+            }
+        });
+
+        new InitTask().execute();
+    }
+
+    @Override
     protected void onResume() {
      
 
