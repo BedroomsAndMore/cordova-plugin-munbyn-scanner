@@ -53,7 +53,37 @@ public class Scanner2D extends CordovaPlugin {
     String seldata="ASCII";
     private ArrayAdapter adapterTagType;
     private Spinner spTagType;
-    
+
+    class HomeKeyEventBroadCastReceiver extends BroadcastReceiver {
+
+        static final String SYSTEM_REASON = "reason";
+        static final String SYSTEM_HOME_KEY = "homekey";//home key
+        static final String SYSTEM_RECENT_APPS = "recentapps";//long home key
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action.equals("com.rscja.android.KEY_DOWN")) {
+                int reason = intent.getIntExtra("Keycode",0);
+                //getStringExtra
+                boolean long1 = intent.getBooleanExtra("Pressed",false);
+                // home key处理点
+                if(reason==280 || reason==66){
+
+                        ScanBarcode();
+
+
+                }
+               // Toast.makeText(getApplicationContext(), "home key="+reason+",long1="+long1, Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+    @Override
+	public void initialize(CordovaInterface cordova, CordovaWebView webView) {
+		super.initialize(cordova, webView);
+
+		sm = new ScanDevice();
+	}
     
   /*  HomeKeyEventBroadCastReceiver     receiver;
     @Override
