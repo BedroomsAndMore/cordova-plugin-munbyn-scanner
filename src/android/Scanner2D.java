@@ -170,9 +170,9 @@ public class Scanner2D extends CordovaPlugin {
                 return true;
             }
         }
-        return super.onKeyDown(keyCode, event);
+      //  return super.onKeyDown(keyCode, event);
     }
-    @Override
+   // @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         if(keyCode==139){
             if(event.getRepeatCount()==0) {
@@ -180,7 +180,7 @@ public class Scanner2D extends CordovaPlugin {
                 return true;
             }
         }
-        return super.onKeyUp(keyCode, event);
+      //  return super.onKeyUp(keyCode, event);
     }
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
@@ -191,7 +191,7 @@ public class Scanner2D extends CordovaPlugin {
 			return true;
 		} else if("onKeyDown".equals(action)) {
             String message = args.getString(0);
-            this.onKeyDown(action, callbackContext);
+           // this.onKeyDown(action, callbackContext);
             return true;
         }
         callbackContext.error(action + " is not a supported action");
