@@ -2,7 +2,8 @@ package cordova.plugin.ipda0502d.scanner;
 
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
-
+import com.zebra.adc.decoder.Barcode2DWithSoft;
+import com.example.barcode2ds.SoundManage.SoundType;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
@@ -10,8 +11,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-
-
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -26,12 +25,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import com.rscja.deviceapi.RFIDWithISO14443A;
-import com.zebra.adc.decoder.Barcode2DWithSoft;
 import com.rscja.deviceapi.Barcode2D;
-
-
 import java.io.UnsupportedEncodingException;
 import org.apache.cordova.*;
 import org.json.JSONArray;
