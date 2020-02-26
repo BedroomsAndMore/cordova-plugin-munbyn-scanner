@@ -163,7 +163,7 @@ public class Scanner2D extends CordovaPlugin {
         }
     }
 
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
+  /*  public boolean onKeyDown(int keyCode, KeyEvent event) {
         if(keyCode==139 || keyCode==66){
             if(event.getRepeatCount()==0) {
                 ScanBarcode();
@@ -171,7 +171,7 @@ public class Scanner2D extends CordovaPlugin {
             }
         }
       //  return super.onKeyDown(keyCode, event);
-    }
+    }*/
    // @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         if(keyCode==139){
