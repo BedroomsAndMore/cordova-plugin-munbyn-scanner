@@ -53,19 +53,67 @@ public class Scanner2D extends CordovaPlugin {
     private ArrayAdapter adapterTagType;
     private Spinner spTagType;
     HomeKeyEventBroadCastReceiver     receiver;
-   // @Override
 
-    //@Override
-
-   @Override
+   //@Override
     protected void onResume() {
-        // TODO Auto-generated method stub
+     
 
 /*
         if (barcode2DWithSoft != null) {
             new InitTask().execute();
         }*/
         super.onResume();
+    }
+    @Override
+    protected void onDestroy() {
+        Log.i(TAG,"onDestroy");
+        if(barcode2DWithSoft!=null){
+            barcode2DWithSoft.stopScan();
+            barcode2DWithSoft.close();
+        }
+        super.onDestroy();
+        //android.os.Process.killProcess(Process.myPid());
+    }
+    public Barcode2DWithSoft.ScanCallback  ScanBack= new Barcode2DWithSoft.ScanCallback(){
+        @Override
+        public void onScanComplete(int i, int length, byte[] bytes) {
+            if (length < 1) {
+                if (length == -1) {
+                    data1.setText("Scan cancel");
+                } else if (length == 0) {
+                    data1.setText("Scan TimeOut");
+                } else {
+                    Log.i(TAG,"Scan fail");
+                }
+            }else{
+                SoundManage.PlaySound(MainActivity.this, SoundManage.SoundType.SUCCESS);
+                barCode="";
+
+
+              //  String res = new String(dd,"gb2312");
+                try {
+                    Log.i("Ascii",seldata);
+                    barCode = new String(bytes, 0, length, seldata);
+                      zt();
+                }
+                catch (UnsupportedEncodingException ex)   {}
+                data1.setText(barCode);
+            }
+
+        }
+    };
+    void zt() {
+
+        Vibrator vibrator = (Vibrator)this.getSystemService(this.VIBRATOR_SERVICE);
+        vibrator.vibrate(100);
+    }
+    private void ScanBarcode(){
+        if(barcode2DWithSoft!=null) {
+            Log.i(TAG,"ScanBarcode");
+
+            barcode2DWithSoft.scan();
+            barcode2DWithSoft.setScanCallback(ScanBack);
+        }
     }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -77,13 +125,15 @@ public class Scanner2D extends CordovaPlugin {
         }
         return super.onKeyDown(keyCode, event);
     }
-    private void ScanBarcode(){
-        if(barcode2DWithSoft!=null) {
-            Log.i(TAG,"ScanBarcode");
-
-            barcode2DWithSoft.scan();
-            barcode2DWithSoft.setScanCallback(ScanBack);
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if(keyCode==139){
+            if(event.getRepeatCount()==0) {
+                barcode2DWithSoft.stopScan();
+                return true;
+            }
         }
+        return super.onKeyUp(keyCode, event);
     }
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
