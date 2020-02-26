@@ -10,7 +10,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.device.ScanDevice;
+
 
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
@@ -42,7 +42,7 @@ import org.json.JSONObject;
  * This class echoes a string called from JavaScript.
  */
 public class Scanner2D extends CordovaPlugin {
-    ScanDevice sm;
+    
 	private final static String SCAN_ACTION = "scan.rcv.message";
 	private final static String EVENT_PREFIX = "scanner";
     private CallbackContext mMainCallback;
@@ -85,7 +85,6 @@ public class Scanner2D extends CordovaPlugin {
 	public void initialize(CordovaInterface cordova, CordovaWebView webView) {
 		super.initialize(cordova, webView);
 
-		sm = new ScanDevice();
 	}
     @Override
     public void onResume(boolean multitasking) {
