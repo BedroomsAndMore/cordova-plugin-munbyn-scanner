@@ -1,4 +1,7 @@
-package com.example.administrator.barcode2ds;
+package cordova.plugin.ipda0502d.scanner;
+
+import org.apache.cordova.CordovaPlugin;
+import org.apache.cordova.CallbackContext;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -11,9 +14,6 @@ import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Vibrator;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -28,13 +28,24 @@ import android.widget.Toast;
 import com.rscja.deviceapi.RFIDWithISO14443A;
 import com.zebra.adc.decoder.Barcode2DWithSoft;
 
-import java.io.UnsupportedEncodingException;
 
-/*
-new demo 20171212
+import java.io.UnsupportedEncodingException;
+import org.apache.cordova.*;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+/**
+ * This class echoes a string called from JavaScript.
  */
-public class MainActivity extends AppCompatActivity {
-    String TAG="MainActivity";
+public class Scanner2D extends CordovaPlugin {
+    //ScanDevice sm;
+	private final static String SCAN_ACTION = "scan.rcv.message";
+	private final static String EVENT_PREFIX = "scanner";
+    private CallbackContext mMainCallback;
+
+
+    String TAG="Scanner2D";
     String barCode="";
     EditText data1;
     Button btn;
@@ -42,7 +53,9 @@ public class MainActivity extends AppCompatActivity {
     String seldata="ASCII";
     private ArrayAdapter adapterTagType;
     private Spinner spTagType;
-    HomeKeyEventBroadCastReceiver     receiver;
+    
+    
+  /*  HomeKeyEventBroadCastReceiver     receiver;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,20 +105,12 @@ public class MainActivity extends AppCompatActivity {
 
         new InitTask().execute();
     }
-
-    @Override
+*/
+  /*  @Override
     protected void onResume() {
-        // TODO Auto-generated method stub
-
-/*
-        if (barcode2DWithSoft != null) {
-            new InitTask().execute();
-        }*/
-        super.onResume();
-    }
-
-
-    @Override
+         super.onResume();
+    }*/
+ /*   @Override
     protected void onDestroy() {
         Log.i(TAG,"onDestroy");
         if(barcode2DWithSoft!=null){
@@ -114,11 +119,8 @@ public class MainActivity extends AppCompatActivity {
         }
         super.onDestroy();
         //android.os.Process.killProcess(Process.myPid());
-    }
-
-
-
-    public Barcode2DWithSoft.ScanCallback  ScanBack= new Barcode2DWithSoft.ScanCallback(){
+    }*/
+   /* public Barcode2DWithSoft.ScanCallback  ScanBack= new Barcode2DWithSoft.ScanCallback(){
         @Override
         public void onScanComplete(int i, int length, byte[] bytes) {
             if (length < 1) {
@@ -145,23 +147,22 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
-    };
-
-    void zt() {
+    };*/
+   /* void zt() {
 
         Vibrator vibrator = (Vibrator)this.getSystemService(this.VIBRATOR_SERVICE);
         vibrator.vibrate(100);
-    }
+    }*/
     private void ScanBarcode(){
+        barcode2DWithSoft=Barcode2DWithSoft.getInstance();
         if(barcode2DWithSoft!=null) {
             Log.i(TAG,"ScanBarcode");
 
             barcode2DWithSoft.scan();
-            barcode2DWithSoft.setScanCallback(ScanBack);
+          // barcode2DWithSoft.setScanCallback(ScanBack);
         }
     }
 
-    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if(keyCode==139 || keyCode==66){
             if(event.getRepeatCount()==0) {
@@ -169,10 +170,9 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         }
-      //  return super.onKeyDown(keyCode, event);
+        return super.onKeyDown(keyCode, event);
     }
-
-   // @Override
+    @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         if(keyCode==139){
             if(event.getRepeatCount()==0) {
@@ -180,60 +180,23 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         }
-       // return super.onKeyUp(keyCode, event);
+        return super.onKeyUp(keyCode, event);
     }
-
-    public class InitTask extends AsyncTask<String, Integer, Boolean> {
-        ProgressDialog mypDialog;
-
-        @Override
-        protected Boolean doInBackground(String... params) {
-            // TODO Auto-generated method stub
-
-
-            boolean reuslt=false;
-            if(barcode2DWithSoft!=null) {
-                reuslt=  barcode2DWithSoft.open(MainActivity.this);
-                Log.i(TAG,"open="+reuslt);
-
-            }
-            return reuslt;
+    @Override
+    public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
+        if ("init".equals(action)) {
+			mMainCallback = callbackContext;
+            //this.onResume(false);
+            ScanBarcode();
+			return true;
+		} else if("onKeyDown".equals(action)) {
+            String message = args.getString(0);
+            this.onKeyDown(action, callbackContext);
+            return true;
         }
-
-        @Override
-        protected void onPostExecute(Boolean result) {
-            super.onPostExecute(result);
-            if(result){
-//                barcode2DWithSoft.setParameter(324, 1);
-//                barcode2DWithSoft.setParameter(300, 0); // Snapshot Aiming
-//                barcode2DWithSoft.setParameter(361, 0); // Image Capture Illumination
-
-                // interleaved 2 of 5
-                barcode2DWithSoft.setParameter(6, 1);
-                barcode2DWithSoft.setParameter(22, 0);
-                barcode2DWithSoft.setParameter(23, 55);
-                barcode2DWithSoft.setParameter(402, 1);
-                Toast.makeText(MainActivity.this,"Success",Toast.LENGTH_SHORT).show();
-            }else{
-                Toast.makeText(MainActivity.this,"fail",Toast.LENGTH_SHORT).show();
-            }
-            mypDialog.cancel();
-        }
-
-        @Override
-        protected void onPreExecute() {
-            // TODO Auto-generated method stub
-            super.onPreExecute();
-
-            mypDialog = new ProgressDialog(MainActivity.this);
-            mypDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            mypDialog.setMessage("init...");
-            mypDialog.setCanceledOnTouchOutside(false);
-            mypDialog.show();
-        }
-
+        callbackContext.error(action + " is not a supported action");
+		return false;
     }
-
     class HomeKeyEventBroadCastReceiver extends BroadcastReceiver {
 
         static final String SYSTEM_REASON = "reason";
@@ -258,4 +221,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
 }
+
+
